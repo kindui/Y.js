@@ -1,0 +1,500 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="doc/index.css"/>
+    <link rel="stylesheet" type="text/css" href="doc/prettify.css"/>
+    <script type="text/javascript" src="Y.min.js"></script>
+    <script type="text/javascript" src="doc/prettify.js"></script>
+    <title>Y.js</title>
+    <style>
+    </style>
+</head>
+<body>
+
+<div id="sidebar" class="interface">
+</div>
+<script type="text/javascript" src="doc/index.js"></script>
+<!--菜单结束-->
+
+<div class="container">
+    <div id="documentation">
+
+
+        <p id="yjs">
+            <b class="header">Y.js介绍</b>
+        </p>
+
+        <p>
+           轻量级的工具集合，简化日常小型项目中的开发
+        </p>
+
+        <p id="about">
+            <b class="header">about</b>
+        </p>
+
+        <pre class="prettyprint">var author = {
+    "姓名":"黄俊华",
+    "公司:"腾讯上海",
+    "邮箱":"humanibm@gmail.com",
+    "QQ":"316996367"
+}
+        </pre>
+
+
+        <p id="selector">
+            <b class="header">Y(selector)</b>
+            <code> </code>
+            <br/>
+            DOM选择器
+        </p>
+<pre class="prettyprint">
+Y("#test");
+Y(".test");
+Y("p");
+</pre>
+
+
+        <p id="istype">
+            <b class="header">Y.isObject(obj)</b>
+            <code> </code>
+            <br/>
+            变量类型判断
+        </p>
+      <pre class="prettyprint">Y.isObject(obj);
+Y.isString(obj);
+Y.isNumber(obj);
+Y.isArray(obj);
+Y.isFunction(obj);
+Y.isNull(obj);
+Y.isUndefined(obj);
+Y.isElement(obj); </pre>
+
+        <p id="tpl">
+            <b class="header">Y.tpl(string,obj)</b>
+            <code> </code>
+            <br/>
+            模版替换
+        </p>
+<pre class="prettyprint">var str = "<# if (i<0) { #> \
+                niba<#=name#>\
+            <# }else{ #>\
+                nima \
+            <# } #>";
+
+var str2 = '<#=i>0?i:"empty"#>';
+
+var str2 = '<# for(var k=0; k<10; k++) { #> \
+		<#=console.log(k);#>\
+	    <# } #>';
+
+var o = {
+        i:-1,
+        name:"tom"
+    }
+Y.tpl(str,o);</pre>
+
+        <p id="foreach">
+            <b class="header">Y.forEach(array,fn)</b>
+            <code> </code>
+            <br/>
+            遍历数组
+        </p>
+      <pre class="prettyprint">var a =["a","b","c","d"];
+Y.forEach(a,function(item,index){
+    console.log(item,index);
+});
+// a 0
+// b 1
+// ...</pre>
+
+        <p id="clone">
+            <b class="header">Y.clone(obj)</b>
+            <code> </code>
+            <br/>
+            克隆一个对象
+        </p>
+      <pre class="prettyprint">
+Y.clone(obj);
+// ...</pre>
+
+        <p id="trim">
+            <b class="header">Y.trim(string)</b>
+            <code> </code>
+            <br/>
+            去掉str两边的字符串
+        </p>
+      <pre class="prettyprint">var s =" abc "
+Y.trim(s);
+//"abc"</pre>
+
+        <p id="inarray">
+            <b class="header">Y.inArray(value, arr)</b>
+            <code> </code>
+            <br/>
+            判断某个值是否在数组中
+        </p>
+      <pre class="prettyprint">var arr =["a","b","c"];
+Y.inArray("b",arr);
+//true</pre>
+
+        <p id="grep">
+            <b class="header">Y.grep(arr, callback)</b>
+            <code> </code>
+            <br/>
+            过滤出符合条件的数组
+        </p>
+      <pre class="prettyprint">var arr =[-3,-2,0,2,4];
+Y.grep(arr,function(item,i){
+    return  item > 0;
+});
+console.log(arr); //[2,4]</pre>
+
+        <p id="map">
+            <b class="header">Y.map(arr, callback)</b>
+            <code> </code>
+            <br/>
+            对数组的每项进行处理,返回新数组
+        </p>
+      <pre class="prettyprint">var arr =[1,2,3];
+Y.map(arr,function(item,i){
+    return item * 3;
+});
+console.log(arr); //[3,6,9]</pre>
+
+
+        <p id="mixa">
+            <b class="header">Y.mix(Y,obj)</b>
+            <code> </code>
+            <br/>
+            给Y.js添加静态方法
+        </p>
+        <pre class="prettyprint">Y.mix(Y,{
+add:function(a,b){
+    return a+b;
+},
+out:function(str){
+    console.log(str);
+});
+Y.add(2,3) // return 5;
+</pre>
+
+
+        <p id="mixb">
+            <b class="header">Y.mix(Y.fn,obj)</b>
+            <code> </code>
+            <br/>
+            给Y.js添加原型方法
+        </p>
+        <pre class="prettyprint">//&lt;div id="test"&gt;hello Y.js&lt;/div&gt;
+            
+Y.mix(Y.fn,{
+    html:function(str){
+        this[0].innerHTML = str;
+    });
+
+Y("#test").html("human_huang")
+// &lt;div id="test"&gt;human_huang&lt;/div&gt;
+</pre>
+
+        <p id="format">
+            <b class="header">Y.date.format(Date,formatStr)</b>
+            <code> </code>
+            <br/>
+            格式化时间
+        </p>
+        <pre class="prettyprint">var d = new Date();
+var dateString = Y.date.format(d,"YYYY年MM月dd日 hh:mm ss");
+var dateString2 = Y.date.format(d,"YY年MM月dd日 hh:mm ss");</pre>
+
+        <p id="cookie">
+            <b class="header">Y.cookie(name,[value],[{}])</b>
+            <code> </code>
+            <br/>
+            get/set Cookie
+        </p>
+<pre class="prettyprint">
+Y.cookie("username","huang");
+Y.cookie("username");
+Y.cookie("username","huangjunhua",{path:"/",domain:"127.0.0.1"});
+</pre>
+
+        <p id="removeCookie">
+            <b class="header">Y.removeCookie(name)</b>
+            <code> </code>
+            <br/>
+            remove Cookie
+        </p>
+<pre class="prettyprint">
+Y.removeCookie("username");
+</pre>
+
+
+        <p id="loadscript">
+            <b class="header">Y.loadScript(url,callback)</b>
+            <code> </code>
+            <br/>
+            加载js或者css文件,执行回调函数.
+            <br/>
+            具有缓存(如存在即使用该js)和队列特性(js加载完成后队列触发多个回调).
+        </p>
+        <pre class="prettyprint">Y.loadScript("./lib/test.js",function(){
+    dosomething();
+});
+Y.loadScript("./lib/test.js",function(){
+    dosomething2();
+});
+//test.js加载后依次执行dosomething();dosomething2();</pre>
+
+        <p id="ajax">
+            <b class="header">Y.ajax({options})</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">参数说明:
+options: {
+    url:"请求url地址", {String}
+    data:"请求参数",   {Object}
+    method:"请求post或者get方法", {"get" | "post"} 默认:"get"
+    dataType:"返回的数据类型", {"xml" | "json" | "jsonp"} 默认:"json"
+    success:"成功回调函数", {Function}
+    error:"失败回调函数",   {Function}
+}
+eg:
+    Y.ajax({
+        url:"server.php",
+        data:{id:12,name:"human"},
+        success:function(ret){
+            console.log("response data:" + ret);
+        },
+        error:function(data){
+            console.log("request error");
+        },
+    });
+</pre>
+
+        <p id="get">
+            <b class="header">Y.get(url,data,callback)</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">eg:
+    Y.get("server.php",{id:22,name:"human"},function(data){
+         console.log("res data:" + data);
+    });
+
+    Y.get("server.php",function(data){
+         console.log("res data:" + data);
+    });
+</pre>
+
+        <p id="post">
+            <b class="header">Y.post(url,data,callback)</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">eg:
+    Y.post("server.php",{id:22,name:"human"},function(data){
+         console.log("res data:" + data);
+    });
+
+    Y.post("server.php",function(data){
+         console.log("res data:" + data);
+    });
+</pre>
+
+
+        <p id="css">
+            <b class="header">Y(selector).css()</b>
+            <code> </code>
+            <br/>
+            CSS
+        </p>
+<pre class="prettyprint">Y(selector).css("background","yellow");
+Y(selector).css({
+    "color":"red",
+    "background":"yellow"
+});
+</pre>
+
+
+        <p id="addClass">
+            <b class="header">Y(selector).addClass()</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">Y(selector).addClass("class1");
+</pre>
+
+
+        <p id="removeClass">
+            <b class="header">Y(selector).removeClass()</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">Y(selector).removeClass("class1");
+</pre>
+
+
+        <p id="hasClass">
+            <b class="header">Y(selector).hasClass()</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">Y(selector).hasClass("class1");
+</pre>
+
+
+        <p id="html">
+            <b class="header">Y(selector).html()</b>
+            <code> </code>
+            <br/>
+        </p>
+<pre class="prettyprint">Y(selector).html(); //得到元素innerHTML值
+Y(selector).html('&lt;div&gt;human&lt;/div&gt;'); //设置元素innerHTML值
+</pre>
+
+        <p id="append">
+            <b class="header">Y(selector).append()</b>
+            <code> </code>
+            <br/>
+            添加节点
+        </p>
+<pre class="prettyprint">Y(selector).append(elementNode);
+</pre>
+
+
+        <p id="appendTo">
+            <b class="header">Y(selector).appendTo(pDom)</b>
+            <code> </code>
+            <br/>
+            将元素添加到pDom子节点上
+        </p>
+<pre class="prettyprint">Y(selector).appendTo(pDom);
+</pre>
+
+        <p id="before">
+            <b class="header">Y(selector).before(dom)</b>
+            <code> </code>
+            <br/>
+            在该元素前添加节点
+        </p>
+<pre class="prettyprint">Y(selector).before(eNode);
+</pre>
+
+        <p id="after">
+            <b class="header">Y(selector).after(dom)</b>
+            <code> </code>
+            <br/>
+            在该元素后添加节点
+        </p>
+<pre class="prettyprint">Y(selector).after(eNode);
+</pre>
+
+        <p id="remove">
+            <b class="header">Y(selector).remove()</b>
+            <code> </code>
+            <br/>
+            在该元素删除
+        </p>
+<pre class="prettyprint">Y(selector).remove();
+</pre>
+        <p id="next">
+            <b class="header">Y(selector).next()</b>
+            <code> </code>
+            <br/>
+            得到选择元素的下一个兄弟节点,该节点为Y类型,不是纯生js节点
+        </p>
+<pre class="prettyprint">Y(selector).next()
+</pre>
+
+
+        <p id="show">
+            <b class="header">Y(selector).show()</b>
+            <code> </code>
+            <br/>
+            显示元素
+        </p>
+<pre class="prettyprint">Y(selector).show();
+</pre>
+
+        <p id="hide">
+            <b class="header">Y(selector).hide()</b>
+            <code> </code>
+            <br/>
+            隐藏元素
+        </p>
+<pre class="prettyprint">Y(selector).hide();
+</pre>
+
+        <p id="position">
+            <b class="header">Y(selector).position()</b>
+            <code> </code>
+            <br/>
+            获取元素基于fixed屏幕绝对位置<br/>
+            @returns {{top: number, left: number}}
+        </p>
+<pre class="prettyprint">Y(selector).position();
+</pre>
+
+        <p id="offset">
+            <b class="header">Y(selector).offset()</b>
+            <code> </code>
+            <br/>
+            获取元素的基于文档的位置<br/>
+            @returns {{top: number, left: number}}
+        </p>
+<pre class="prettyprint">Y(selector).offset();
+</pre>
+
+        <p id="on">
+            <b class="header">Y(selector).on()</b>
+            <code> </code>
+            <br/>
+            绑定事件,处理了大多数浏览器兼容问题,event事件进行了包装,this为绑定事件的dom.
+        </p>
+<pre class="prettyprint">Y(selector).on("click",function(e){
+        console.log(e);
+        console.log(this);
+        console.log(e.target);
+    });
+</pre>
+
+        <p id="browser">
+            <b class="header">Y.browser</b>
+            <code> </code>
+            <br/>
+            inspect浏览器类型
+            @returns  true | false
+        </p>
+<pre class="prettyprint">Y.browser.isChrome();
+Y.browser.isFirefox();
+Y.browser.isIE();
+Y.browser.isOpera();
+Y.browser.isWin();
+</pre>
+<div id="msg">
+    <div class="ds-thread"></div>
+</div>
+
+    </div>
+</div>
+
+<script>
+    window.prettyPrint();
+</script>
+<!-- Duoshuo Comment BEGIN -->
+<script type="text/javascript">
+    var duoshuoQuery = {short_name:"yjs"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+                || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+<!-- Duoshuo Comment END -->
+</body>
+</html>
